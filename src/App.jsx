@@ -1,39 +1,21 @@
-import { useEffect, useState } from "react";
+
 import "./App.css";
-import ProductComponent from "./components/ProductComponent";
+import FooterComponent from "./components/FooterComponent";
+
 import NavbarComponent from "./components/NavbarComponent";
+import { Outlet } from "react-router";
 
-function App() {
-  const [product, setProduct] = useState([]);
-
-  useEffect(()=>{
-     async function fetchProductData(){
-        const response = await fetch('https://api.escuelajs.co/api/v1/products');
-        const productData = await response.json();
-        setProduct(productData);
-     }
-    //  calling function
-     fetchProductData();
-
-  },[])
+function RootLayout() {
+  
   
   return (
    <>
    {/* navbar */}
    <NavbarComponent/>
-   
-    <section className="grid grid-cols-4 gap5">
-      {
-        product.map((product)=>(
-          <ProductComponent
-           title={product?.title}
-           image={product?.images[0]}
-           price={product?.price}
-          />
-        ) )
-      }
-    </section>
+      {/* dynamic components wil render here */}
+      <Outlet/> 
+   <FooterComponent/>
    </>
   );
 }
-export default App;
+export default RootLayout;

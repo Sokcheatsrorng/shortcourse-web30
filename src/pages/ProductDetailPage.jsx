@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import ProductDetailComponent from "../components/ProductDetailComponent";
 import { useParams } from "react-router";
 
-
 export default function ProductDetailPage() {
   // get slug from url 
   let params = useParams();
@@ -24,6 +23,8 @@ export default function ProductDetailPage() {
 
   return (
     <div>
+      {/* navbar */}
+         {/* <NavbarComponent/> */}
 
       <ProductDetailComponent
        title={singleProduct?.title}
