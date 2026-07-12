@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../features/cart/cartSlice";
+import { useGetAllProductsQuery } from "../../services/ecommerce";
 
 export function ProductCartComponent({
   name, description, thumbnail, priceOut, addToCart
@@ -53,22 +54,18 @@ export function ProductCartComponent({
 
 // map data from api 
 export default function FetchProductCard () {
-  const [product, setProduct] = useState([]);
+  //  use hook from rtk query 
+  const {data, isLoading, error} = useGetAllProductsQuery();
+  console.log(`==> data : `, data)
+  console.log(isLoading);
+  console.log(error);
+
   const dispatch = useDispatch();
-  useEffect(()=>{
-       async function fetchingData(){
-          const response = await fetch(`${import.meta.env.VITE_ISHOP_BASE_URL}/products`);
-      const data = await response.json();
-      setProduct(data.content);
-        }
-        fetchingData();
-  },[])
-  console.log(product)
+ 
   return (
    <section className="grid grid-cols-2 gap-4">
-
     {
-      product?.map(({uuid, name, description, priceOut, thumbnail}) => (
+      data?.content.map(({uuid, name, description, priceOut, thumbnail}) => (
         <ProductCartComponent
         key={uuid}
          name={name}
@@ -85,25 +82,6 @@ export default function FetchProductCard () {
       ))
     }
    
-     {/* {
-     product.map(
-      ({name, description, thumbnail, priceOut,uuid})=> {
-        <ProductCartComponent
-         key={uuid}
-         name={name}
-         description={description}
-         thumbnail={thumbnail}
-         priceOut={priceOut}
-         addToCart={() => dispatch(addToCart({
-          name, 
-          priceOut,
-          description,
-          thumbnail
-         }))}
-        />
-      }
-     )} */}
-
    </section>
 
   )
