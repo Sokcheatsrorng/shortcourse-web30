@@ -5,9 +5,12 @@ import SidebarDasboard from "./SidebarDasboard";
 
 export default function DashboardLayout() {
   return (
-    <div className="grid grid-cols-2 ">
+  <div>
+       <div className="grid grid-cols-2 justify-be">
       <SidebarDasboard/>
-      <Outlet/>
+     
     </div>
+     <Outlet/>
+  </div>
   )
 }

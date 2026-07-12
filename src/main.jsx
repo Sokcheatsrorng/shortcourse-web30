@@ -12,11 +12,14 @@ import UserDashboardPage from "./DashboardLayout/UserDashboardPage";
 import SettingDashboardPage from "./DashboardLayout/SettingDashboardPage";
 import FormPage from "./pages/FormPage";
 import LoginPage from "./pages/LoginPage";
+import TableComponent from "./DashboardLayout/TableComponent";
+import StoreProvider from "./StoreProvider";
+import ReduxPage from "./pages/ReduxPage";
 
 const router = createBrowserRouter([
   {
     path: "/", //root Layout
-    element: <RootLayout />,//nested route 
+    element: <RootLayout />, //nested route
     children: [
       {
         path: "/about",
@@ -29,38 +32,50 @@ const router = createBrowserRouter([
       {
         path: "/products/:slug", //dynamic route
         element: <ProductDetailPage />,
-      }, 
-      {
-        path: '/form',
-        element: <FormPage/>
       },
       {
-        path:'/login',
-        element: <LoginPage/>
+        path: "/form",
+        element: <FormPage />,
+      },
+      {
+        path: "/login",
+        element: <LoginPage />,
+      },
+      {
+        path: '/redux',
+        element: <ReduxPage/>
       }
     ],
   },
   {
-    path:'/dashboard',
-    element: <DashboardLayout/>,
+    path: "/dashboard",
+    element: <DashboardLayout />,
     children: [
       {
-        path: '/dashboard/users',
-        element: <UserDashboardPage/>
+        path: "/dashboard/users",
+        element: <UserDashboardPage />,
       },
       {
-        path: '/dashboard/setting',
-        element: <SettingDashboardPage/>
-      }
-    ]
+        path: "/dashboard/setting",
+        element: <SettingDashboardPage />,
+      },
+      {
+        path: "/dashboard/table-data",
+        element: <TableComponent />,
+      },
+    ],
   },
 
   {
     path: "*", // page not found customize
     element: <NotFoundPage />,
-  },
+  }
 ]);
 
 const root = document.getElementById("root");
 
-ReactDOM.createRoot(root).render(<RouterProvider router={router} />);
+ReactDOM.createRoot(root).render(
+  <StoreProvider>
+    <RouterProvider router={router} />
+  </StoreProvider>,
+);

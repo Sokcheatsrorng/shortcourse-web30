@@ -42,7 +42,6 @@ export default function LoginFormComponnet() {
       },
       body: JSON.stringify(value)
     })
-
     if(res.status == "200"){
        const data = await res.json();
        toast.success("You have login successfully!")
@@ -104,7 +103,7 @@ export default function LoginFormComponnet() {
 
             {/* display feedback input form  */}
             {errors.email && <p className="text-red-500">{errors.email.message}</p>}
-            
+
             <div className="hidden absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
               <svg
                 className="h-5 w-5 text-red-500"
